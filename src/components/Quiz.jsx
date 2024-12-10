@@ -35,7 +35,12 @@ const Quiz = () => {
   return (
     <div id='quiz'>
       <div id='question'>
-        <QuestionTimer timeout={10000} onTimeout={handleSkipAnswer} />
+        <QuestionTimer
+          timeout={10000}
+          onTimeout={handleSkipAnswer}
+          // key 를 입력하면 재렌더링 되지 않는 부분도 같이 재렌더링 됨
+          key={activeQuestionIndex}
+        />
         <h2>{QUESTION[activeQuestionIndex].text}</h2>
         <ul id='answers'>
           {shuffledAnswers.map((answer) => (
