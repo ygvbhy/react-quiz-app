@@ -4,7 +4,7 @@ const Answers = ({ answers, selectedAnswer, answerState, onSelect }) => {
   const shuffledAnswers = useRef();
 
   if (!shuffledAnswers.current) {
-    shuffledAnswers.current = [...answers.answers];
+    shuffledAnswers.current = [...answers];
     shuffledAnswers.current.sort(() => Math.random() - 0.5);
   }
 
@@ -30,6 +30,7 @@ const Answers = ({ answers, selectedAnswer, answerState, onSelect }) => {
             <button
               onClick={() => onSelect(answer)}
               className={classes}
+              disabled={answerState !== ""}
             >
               {answer}
             </button>

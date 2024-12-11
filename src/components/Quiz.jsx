@@ -5,33 +5,15 @@ import Question from "./Question";
 
 const Quiz = () => {
   const [userAnswers, setUserAnswers] = useState([]);
-  const [answerState, setAnswerState] = useState("");
 
-  const activeQuestionIndex =
-    answerState === "" ? userAnswers.length : userAnswers.length - 1;
+  const activeQuestionIndex = userAnswers.length;
   const quizIsComplete = activeQuestionIndex === QUESTION.length;
 
-  const handleSelectAnswer = useCallback(
-    (selectedAnswer) => {
-      setAnswerState("answered");
-      setUserAnswers((prevAnswer) => {
-        return [...prevAnswer, selectedAnswer];
-      });
-
-      setTimeout(() => {
-        if (selectedAnswer === QUESTION[activeQuestionIndex].answers[0]) {
-          setAnswerState("correct");
-        } else {
-          setAnswerState("wrong");
-        }
-
-        setTimeout(() => {
-          setAnswerState("");
-        }, 2000);
-      }, 1000);
-    },
-    [activeQuestionIndex]
-  );
+  const handleSelectAnswer = useCallback((selectedAnswer) => {
+    setUserAnswers((prevAnswer) => {
+      return [...prevAnswer, selectedAnswer];
+    });
+  }, []);
 
   const handleSkipAnswer = useCallback(
     () => handleSelectAnswer(null),
@@ -53,11 +35,8 @@ const Quiz = () => {
         // key 를 입력하면 재렌더링 되지 않는 부분도 같이 재렌더링 됨
         // 하나의 div 에 중복 적용이 불가능 하므로 컴포넌트화 하여 한개로 진행
         key={activeQuestionIndex}
-        questionText={QUESTION[activeQuestionIndex].text}
-        answers={QUESTION[activeQuestionIndex].answers}
+        index={activeQuestionIndex}
         onSelectAnswer={handleSelectAnswer}
-        selectedAnswer={userAnswers[userAnswers.length - 1]}
-        answerState={answerState}
         onSkipAnswer={handleSkipAnswer}
       />
     </div>

@@ -23,7 +23,7 @@ const QuestionTimer = ({ timeout, onTimeout }) => {
     };
   }, []);
 
-  return <progress id='question-time' max={timeout} value={remainingTime} />;
+  return <progress id="question-time" max={timeout} value={remainingTime} />;
 };
 
 export default QuestionTimer;
